@@ -1,0 +1,55 @@
+---
+title: "PAM_notebook"
+output: html_notebook
+---
+
+Loading packages
+```{r}
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(plotrix)
+```
+
+Load master data sheet into R, clean it up, and call it pam_data
+```{r}
+raw<-read_excel("Master.xlsx",sheet="DATA")%>%clean_names()#this made everyhting lowercase and better
+
+pam_data<-raw%>%
+  #filter(method!="CRASH")%>%# != means not equal to 
+  select(everything(),-should_be,-notes)
+```
+
+
+
+```{r}
+library(ggplot2)
+# Step 1
+pam_data %>% 
+#Step 2
+group_by(bleaching_phenotype) %>% 
+#Step 3
+summarise(mean_yellow = mean(HR)) %>% 
+#Step 4
+ggplot(aes(x = bleaching_phenotype, y = mean_yellow, fill = lgID)) +
+    geom_bar(stat = "identity") +
+    theme_classic() +
+    labs(
+        x = "baseball league",
+        y = "Average home run",
+        title = paste(
+            "Example group_by() with summarise()"
+        )
+    )
+
+```
+
+
+
+```{r}
+yellow2<-pam_data%>%group_by(bleaching_phenotype)
+
+#yellow <- subset(pam_data, bleaching_phenotype = "yellow", select=c(all()))
+```
+
+

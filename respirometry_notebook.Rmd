@@ -1,0 +1,16 @@
+---
+title: "respirometry_notebook"
+output: html_notebook
+---
+
+This is a notebook to analyze repspirometry data from the Probiotics experiment conducted in the summer of 2020
+
+
+This chunk is to install and load the "respirometry package"
+```{r}
+install.packages("https://cran.r-project.org/bin/macosx/contrib/4.0/respirometry_1.2.1.tgz",
+                 repos=NULL, method="libcurl")
+library(PKNCA)
+library(respirometry)
+```
+
